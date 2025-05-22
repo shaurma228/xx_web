@@ -99,7 +99,7 @@ function MapComponent() {
                     variant="outline"
                     className="h-[50] w-[50] rounded-full p-0"
                 >
-                    <Image src="/refresh-ccw.svg" alt="Reload Icon"/>
+                    <Image src="/refresh-ccw.svg" alt="Reload Icon" width={30} height={30} />
                 </Button>
             </div>
             {/*<div className="absolute top-4 right-4 z-[1000]">*/}

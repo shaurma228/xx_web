@@ -35,7 +35,7 @@ function Filter({ activeFilters, setActiveFilters }: FilterProps) {
         <DropdownMenu>
             <DropdownMenuTrigger asChild={true}>
                 <Button variant="outline" className="h-[50] w-[50] rounded-full p-0">
-                    <Image src="/funnel.svg" alt="Filter icon" />
+                    <Image src="/funnel.svg" alt="Filter icon" width={30} height={30}/>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className={cn("z-[1050] mr-4")}>
