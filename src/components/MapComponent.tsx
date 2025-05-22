@@ -82,11 +82,11 @@ function MapComponent() {
 
     return (
         <div className="relative w-full h-full">
-            <div className="absolute top-4 left-4 z-[1000]"> {/* Увеличиваем z-index */}
+            <div className="absolute top-4 left-4 z-[1000]">
                 <Filter activeFilters={activeFilters} setActiveFilters={setActiveFilters} />
             </div>
             <MapContainer
-                className="leaflet-container z-0" // Устанавливаем z-index карты ниже
+                className="leaflet-container z-0"
                 bounds={bounds}
                 style={{ height: "100vh", width: "100%" }}
                 attributionControl={false}
