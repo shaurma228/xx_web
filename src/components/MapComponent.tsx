@@ -47,11 +47,21 @@ function MapComponent() {
     const filteredEvents = events.filter((event) =>
         activeFilters.length === 0 || activeFilters.includes(event.color)
     )
-
     function postBounds(boundsData: [[number, number], [number, number]]) {
         axios.post(`${apiUrl}/api/postBounds`, boundsData)
             .then(response => console.log('Bounds sent successfully:', response.data))
             .catch(error => console.error('Error sending bounds:', error))
+    }
+
+    async function checkEvents() {
+        axios.get(`${apiUrl}/api/checkEvents`)
+            .then(response => {
+                console.log('Events checked successfully:', response.data)
+                if (response.data) {
+                    postBounds(response.data)
+                }
+            })
+            .catch(error => console.error('Error checking events:', error))
     }
     
     async function fetchEvents() {
@@ -81,6 +91,10 @@ function MapComponent() {
     useEffect(() => {
         fetchEvents()
     })
+
+    useEffect(() => {
+        checkEvents()
+    });
 
     function handleRefresh() {
         window.location.reload();
