@@ -5,7 +5,7 @@ import { MapContainer, TileLayer, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import axios from "axios"
 
-function HeatMap() {
+function MapComponent() {
     const [ topLeft, setTopLeft ] = useState<[number, number]>([55.751244, 37.618423])
     const [ bottomRight, setBottomRight ] = useState<[number, number]>([55.751244, 37.618423])
     const [ bounds, setBounds ] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
@@ -72,4 +72,4 @@ function HeatMap() {
     )
 }
 
-export default HeatMap
+export default MapComponent

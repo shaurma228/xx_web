@@ -1,10 +1,10 @@
 import React from 'react'
-import HeatMap from '@/components/HeatMap'
+import Map from '@/components/Map'
 
 function Home() {
   return (
     <div>
-      <HeatMap/>
+      <Map/>
     </div>
   )
 }
