@@ -6,6 +6,9 @@ import React, {
 import { MapContainer, TileLayer, CircleMarker, Popup, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import Filter from "@/components/Filter"
+import { Button} from "@/components/ui/button"
+import { RefreshCcw } from "lucide-react"
+
 // import axios from "axios"
 
 interface Event {
@@ -17,7 +20,7 @@ interface Event {
 }
 
 const events: Event[] = [
-    { id: "1", position: [55.751244, 37.618423], color: "red", title: "Событие 1", status: "Статус 1" },
+    { id: "1", position: [55.751244, 37.618423], color: " #d15035 ", title: "Событие 1", status: "Статус 1" },
     { id: "2", position: [55.752244, 37.615423], color: "orange", title: "Событие 2", status: "Статус 2" },
     { id: "3", position: [55.750244, 37.620423], color: "green", title: "Событие 3", status: "Статус 3" },
 ]
@@ -29,7 +32,6 @@ function MapComponent() {
     const [bottomRight, setBottomRight] = useState<[number, number]>([55.751244, 37.618423])
     const [bounds, setBounds] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
     const [activeFilters, setActiveFilters] = useState<string[]>([])
-    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
     // const [events, setEvents] = useState<Event[]>([])
 
     const filteredEvents = events.filter((event) =>
@@ -73,6 +75,7 @@ function MapComponent() {
                 setBounds([topLeft, bottomRight])
                 console.log(bounds)
                 // postBounds(bounds)
+                // fetchEvents()
             },
         })
         return null
@@ -93,15 +96,13 @@ function MapComponent() {
     return (
         <div className="relative w-full h-full">
             <div className="absolute top-4 left-4 z-[1000]">
-                <button 
-                    onClick={handleRefresh} 
-                    className="bg-white p-2 rounded-md shadow-md hover:bg-gray-100 transition-colors"
-                    title="Перезагрузить страницу"
+                <Button
+                    onClick={handleRefresh}
+                    variant="outline"
+                    size="icon"
                 >
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                    </svg>
-                </button>
+                    <RefreshCcw />
+                </Button>
             </div>
             
             <div className="absolute top-4 right-4 z-[1000]">
@@ -126,20 +127,7 @@ function MapComponent() {
                             fillColor: event.color,
                             fillOpacity: 0.5,
                         }}
-                        eventHandlers={{
-                            click: () => setSelectedEvent(event),
-                        }}
                     >
-                        {selectedEvent?.id === event.id && (
-                            <Popup
-                                position={event.position}
-                            >
-                                <div>
-                                    <h3 className="font-bold">{event.title}</h3>
-                                    <p>{event.status}</p>
-                                </div>
-                            </Popup>
-                        )}
                     </CircleMarker>
                 ))}
             </MapContainer>
