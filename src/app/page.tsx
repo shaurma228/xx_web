@@ -3,10 +3,11 @@ import Map from '@/components/Map'
 
 function Home() {
   return (
-    <div>
-      <Map/>
+    <div className="w-full h-screen">
+      <Map />
     </div>
   )
 }
 
 export default Home
+

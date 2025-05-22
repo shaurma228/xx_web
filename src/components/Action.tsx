@@ -1,12 +1,5 @@
 import React from 'react'
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-    DialogTrigger,
-} from "@/components/ui/dialog"
+import Circle from "@/components/Circle"
 
 interface Props {
     color: 'red' | 'orange' | 'yellow' | 'green' | 'blue'
@@ -16,20 +9,13 @@ interface Props {
 
 function Action({ color, header, description }: Props) {
     return (
-        <Dialog>
-            <DialogTrigger>
-                <div
-                    className="w-32 h-32 rounded-full opacity-50"
-                    style={{ backgroundColor: color }}
-                />
-            </DialogTrigger>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>{header}</DialogTitle>
-                    <DialogDescription>{description}</DialogDescription>
-                </DialogHeader>
-            </DialogContent>
-        </Dialog>
+        <div className="border border-gray-300 rounded-4xl shadow-md p-4 flex items-center gap-4 w-fit">
+            <Circle color={color} size={10} />
+            <div>
+                <div className="text-xl">{header}</div>
+                <div className="">{description}</div>
+            </div>
+        </div>
     )
 }
 
