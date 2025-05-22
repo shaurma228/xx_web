@@ -5,10 +5,17 @@ import { MapContainer, TileLayer, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import axios from "axios"
 
+interface Action {
+    title: string
+    description: string
+    color: 'red' | 'orange' | 'yellow' | 'green' | 'blue'
+}
+
 function MapComponent() {
     const [ topLeft, setTopLeft ] = useState<[number, number]>([55.751244, 37.618423])
     const [ bottomRight, setBottomRight ] = useState<[number, number]>([55.751244, 37.618423])
     const [ bounds, setBounds ] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
+    const [ actions, setActions ] = useState<Action[]>([])
 
     function postBounds(boundsData: [[number, number], [number, number]]) {
         axios.post('/api/postBounds', boundsData)
@@ -28,12 +35,12 @@ function MapComponent() {
     }
 
     function fetchActions() {
-        // axios.get('/api/getActions')
-        //     .then(response => {
-        //         const data = response.data
-        //         console.log('Actions:', data)
-        //     })
-        //     .catch(error => console.error('Error fetching actions:', error))
+        axios.get('/api/getActions')
+            .then(response => {
+                setActions(response.data)
+                console.log(actions)
+            })
+            .catch(error => console.error('Error fetching actions:', error))
     }
 
     function MapEventHandler() {
@@ -44,7 +51,6 @@ function MapComponent() {
                 setTopLeft([currentBounds.getNorthEast().lat, currentBounds.getNorthEast().lng])
                 setBottomRight([currentBounds.getSouthWest().lat, currentBounds.getSouthWest().lng])
                 setBounds([topLeft, bottomRight])
-                console.log("Current bounds:", bounds)
                 postBounds(bounds)
             },
         })
