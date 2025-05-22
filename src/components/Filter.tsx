@@ -7,7 +7,6 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
-import { Funnel } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils"
 
@@ -34,8 +33,8 @@ function Filter({ activeFilters, setActiveFilters }: FilterProps) {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild={true}>
-                <Button variant="outline" size="icon">
-                    <Funnel />
+                <Button variant="outline" className="h-[50] w-[50] rounded-full p-0">
+                    <img src="/funnel.svg"/>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className={cn("z-[1050] mr-4")}>

@@ -120,12 +120,11 @@ function MapComponent() {
                 <Button
                     onClick={handleRefresh}
                     variant="outline"
-                    size="icon"
+                    className="h-[50] w-[50] rounded-full p-0"
                 >
-                    <RefreshCcw />
+                    <img src="/refresh-ccw.svg"/>
                 </Button>
             </div>
-            
             <div className="absolute top-4 right-4 z-[1000]">
                 <Filter activeFilters={activeFilters} setActiveFilters={setActiveFilters} />
             </div>
