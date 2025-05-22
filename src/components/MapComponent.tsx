@@ -32,8 +32,6 @@ function MapComponent() {
     const [ topLeft, setTopLeft ] = useState<[number, number]>([55.751244, 37.618423])
     const [ bottomRight, setBottomRight ] = useState<[number, number]>([55.751244, 37.618423])
     const [ bounds, setBounds ] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
-    // const [ actions, setActions ] = useState<Action[]>([])
-    //
     // function postBounds(boundsData: [[number, number], [number, number]]) {
     //     axios.post('/api/postBounds', boundsData)
     //         .then(response => console.log('Bounds sent successfully:', response.data))
@@ -50,9 +48,9 @@ function MapComponent() {
     //         })
     //         .catch(error => console.error('Error fetching bounds:', error))
     // }
-    //
-    // function fetchActions() {
-    //     axios.get('/api/getActions')
+
+    // function fetchEvents() {
+    //     axios.get('/api/getEvents')
     //         .then(response => {
     //             setActions(response.data)
     //             console.log(actions)
