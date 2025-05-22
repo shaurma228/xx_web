@@ -12,13 +12,14 @@ interface Event {
     id: string
     position: [number, number]
     color: string
-    radius: number
+    title: string
+    status: string
 }
 
 const events: Event[] = [
-    { id: "1", position: [55.751244, 37.618423], color: "red", radius: 15 },
-    { id: "2", position: [55.752244, 37.615423], color: "orange", radius: 15 },
-    { id: "3", position: [55.750244, 37.620423], color: "green", radius: 15 },
+    { id: "1", position: [55.751244, 37.618423], color: "red", title: "Событие 1", status: "Статус 1" },
+    { id: "2", position: [55.752244, 37.615423], color: "orange", title: "Событие 2", status: "Статус 2" },
+    { id: "3", position: [55.750244, 37.620423], color: "green", title: "Событие 3", status: "Статус 3" },
 ]
 
 function MapComponent() {
@@ -98,7 +99,7 @@ function MapComponent() {
                     <CircleMarker
                         key={event.id}
                         center={event.position}
-                        radius={event.radius}
+                        radius={15}
                         pathOptions={{
                             color: event.color,
                             fillColor: event.color,
