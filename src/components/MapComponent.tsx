@@ -21,6 +21,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import { Separator } from "@/components/ui/separator"
 
 // import axios from "axios"
 
@@ -169,6 +170,7 @@ function MapComponent() {
                                         <AccordionContent className="text-center">
                                             {selectedEvent.descriptions[i]}
                                         </AccordionContent>
+                                        <Separator className="my-2" />
                                     </AccordionItem>
                                 </Accordion>
                             ))
