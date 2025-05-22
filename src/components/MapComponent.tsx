@@ -22,7 +22,6 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { Separator } from "@/components/ui/separator"
 
 // import axios from "axios"
 
@@ -32,12 +31,13 @@ interface Event {
     color: string
     titles: string[]
     statuses: string[]
+    descriptions: string[]
 }
 
 const events: Event[] = [
-    { id: "1", position: [55.751244, 37.618423], color: "orange", titles: ["Событие 1", "Событие 1.1"], statuses: ["В обработке", "Увы"] },
-    { id: "2", position: [55.752244, 37.615423], color: "green", titles: ["Событие 2"], statuses: ["Завершено"] },
-    { id: "3", position: [55.750244, 37.620423], color: "red", titles: ["Событие 3"], statuses: ["Просрочено"] },
+    { id: "1", position: [55.751244, 37.618423], color: "orange", titles: ["Событие 1", "Событие 1.1"], statuses: ["В обработке", "Увы"], descriptions: ["Описание 1", "Описание 1.1"] },
+    { id: "2", position: [55.752244, 37.615423], color: "green", titles: ["Событие 2"], statuses: ["Завершено"], descriptions: ["Описание 2"] },
+    { id: "3", position: [55.750244, 37.620423], color: "red", titles: ["Событие 3"], statuses: ["Просрочено"], descriptions: ["Описание 3"] },
 ]
 
 // const apiUrl = process.env.NEXT_PUBLIC_API_URL
@@ -169,7 +169,7 @@ function MapComponent() {
                                             {title}: {selectedEvent.statuses[i]}
                                         </AccordionTrigger>
                                         <AccordionContent className="text-center">
-                                            АПХАХАХАХАХАХАХАХАХАХАХАХАХАХАХАХАХАХАХАХАХАХА
+                                            {selectedEvent.descriptions[i]}
                                         </AccordionContent>
                                     </AccordionItem>
                                 </Accordion>
