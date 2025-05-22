@@ -7,7 +7,6 @@ import { MapContainer, TileLayer, CircleMarker, useMapEvents } from "react-leafl
 import "leaflet/dist/leaflet.css"
 import Filter from "@/components/Filter"
 import { Button} from "@/components/ui/button"
-import { RefreshCcw } from "lucide-react"
 import {
     Drawer,
     DrawerClose,
