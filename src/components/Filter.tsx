@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -19,12 +19,12 @@ const FILTERS = [
 
 interface FilterProps {
     activeFilters: string[]
-    setActiveFilters: (filters: string[]) => void
+    setActiveFilters: React.Dispatch<React.SetStateAction<string[]>> // Обновлён тип
 }
 
 function Filter({ activeFilters, setActiveFilters }: FilterProps) {
     const handleChange = (id: string) => {
-        setActiveFilters((prev) =>
+        setActiveFilters((prev: string[]) =>
             prev.includes(id)
                 ? prev.filter((item) => item !== id)
                 : [...prev, id]
