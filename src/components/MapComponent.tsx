@@ -4,7 +4,7 @@ import React, {
     useState,
     // useEffect
 } from "react"
-import { MapContainer, TileLayer, useMapEvents } from "react-leaflet"
+import { MapContainer, TileLayer, CircleMarker, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 // import axios from "axios"
 //
@@ -14,6 +14,19 @@ import "leaflet/dist/leaflet.css"
 //     color: 'red' | 'orange' | 'yellow' | 'green' | 'blue'
 // }
 import Filter from "@/components/Filter"
+
+interface Event {
+    id: string
+    position: [number, number]
+    color: string
+    radius: number
+}
+
+const events: Event[] = [
+    { id: "1", position: [55.751244, 37.618423], color: "red", radius: 10 },
+    { id: "2", position: [55.752244, 37.615423], color: "orange", radius: 10 },
+    { id: "3", position: [55.750244, 37.620423], color: "green", radius: 10 },
+]
 
 function MapComponent() {
     const [ topLeft, setTopLeft ] = useState<[number, number]>([55.751244, 37.618423])
@@ -84,6 +97,18 @@ function MapComponent() {
             >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MapEventHandler />
+                {events.map((event) => (
+                    <CircleMarker
+                        key={event.id}
+                        center={event.position}
+                        radius={event.radius}
+                        pathOptions={{
+                            color: event.color,
+                            fillColor: event.color,
+                            fillOpacity: 0.5,
+                        }}
+                    />
+                ))}
             </MapContainer>
         </div>
     )
