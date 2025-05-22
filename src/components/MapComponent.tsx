@@ -1,8 +1,6 @@
 'use client'
 
-import React, {
-    useState, // useEffect
-} from "react"
+import React, { useState, useEffect } from "react"
 import { MapContainer, TileLayer, CircleMarker, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 // import Filter from "@/components/Filter"
@@ -22,8 +20,9 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Separator } from "@/components/ui/separator"
+import Image from "next/image"
 
-// import axios from "axios"
+import axios from "axios"
 
 interface Event {
     id: string
@@ -34,20 +33,14 @@ interface Event {
     descriptions: string[]
 }
 
-const events: Event[] = [
-    { id: "1", position: [55.751244, 37.618423], color: "orange", titles: ["Событие 1", "Событие 1.1"], statuses: ["В обработке", "Увы"], descriptions: ["Описание 1", "Описание 1.1"] },
-    { id: "2", position: [55.752244, 37.615423], color: "green", titles: ["Событие 2"], statuses: ["Завершено"], descriptions: ["Описание 2"] },
-    { id: "3", position: [55.750244, 37.620423], color: "red", titles: ["Событие 3"], statuses: ["Просрочено"], descriptions: ["Описание 3"] },
-]
-
-// const apiUrl = process.env.NEXT_PUBLIC_API_URL
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 function MapComponent() {
     const [topLeft, setTopLeft] = useState<[number, number]>([55.751244, 37.618423])
     const [bottomRight, setBottomRight] = useState<[number, number]>([55.751244, 37.618423])
     const [bounds, setBounds] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
     const [activeFilters] = useState<string[]>([])
-    // const [events, setEvents] = useState<Event[]>([])
+    const [events, setEvents] = useState<Event[]>([])
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
 
@@ -55,31 +48,20 @@ function MapComponent() {
         activeFilters.length === 0 || activeFilters.includes(event.color)
     )
 
-    // function postBounds(boundsData: [[number, number], [number, number]]) {
-    //     axios.post(`${apiUrl}/api/postBounds`, boundsData)
-    //         .then(response => console.log('Bounds sent successfully:', response.data))
-    //         .catch(error => console.error('Error sending bounds:', error))
-    // }
-    //
-    // function fetchBounds() {
-    //     axios.get(`${apiUrl}/api/getBounds`)
-    //         .then(response => {
-    //             const data = response.data
-    //             setTopLeft([data.topLeft.lat, data.topLeft.lng])
-    //             setBottomRight([data.bottomRight.lat, data.bottomRight.lng])
-    //             setBounds([topLeft, bottomRight])
-    //         })
-    //         .catch(error => console.error('Error fetching bounds:', error))
-    // }
-    //
-    // function fetchEvents() {
-    //     axios.get(`${apiUrl}/api/getEvents`)
-    //         .then(response => {
-    //             setEvents(response.data)
-    //             console.log(events)
-    //         })
-    //         .catch(error => console.error('Error fetching actions:', error))
-    // }
+    function postBounds(boundsData: [[number, number], [number, number]]) {
+        axios.post(`${apiUrl}/api/postBounds`, boundsData)
+            .then(response => console.log('Bounds sent successfully:', response.data))
+            .catch(error => console.error('Error sending bounds:', error))
+    }
+    
+    async function fetchEvents() {
+        axios.get(`${apiUrl}/api/getEvents`)
+            .then(response => {
+                setEvents(response.data)
+                console.log(events)
+            })
+            .catch(error => console.error('Error fetching actions:', error))
+    }
 
     function MapEventHandler() {
         useMapEvents({
@@ -89,21 +71,16 @@ function MapComponent() {
                 setTopLeft([currentBounds.getNorthEast().lat, currentBounds.getNorthEast().lng])
                 setBottomRight([currentBounds.getSouthWest().lat, currentBounds.getSouthWest().lng])
                 setBounds([topLeft, bottomRight])
-                console.log(bounds)
-                // postBounds(bounds)
-                // fetchEvents()
+                // console.log(topLeft[0] - bottomRight[0], topLeft[1] - bottomRight[1])
+                postBounds(bounds)
             },
         })
         return null
     }
 
-    // useEffect(() => {
-    //     fetchBounds()
-    // })
-    //
-    // useEffect(() => {
-    //     fetchEvents()
-    // })
+    useEffect(() => {
+        fetchEvents()
+    })
 
     function handleRefresh() {
         window.location.reload();
@@ -122,7 +99,7 @@ function MapComponent() {
                     variant="outline"
                     className="h-[50] w-[50] rounded-full p-0"
                 >
-                    <img src="/refresh-ccw.svg"/>
+                    <Image src="/refresh-ccw.svg" alt="Reload Icon"/>
                 </Button>
             </div>
             {/*<div className="absolute top-4 right-4 z-[1000]">*/}
@@ -145,7 +122,8 @@ function MapComponent() {
                         pathOptions={{
                             color: event.color,
                             fillColor: event.color,
-                            fillOpacity: 0.5,
+                            fillOpacity: 0.4,
+                            weight: 1,
                         }}
                         eventHandlers={{
                             click: () => handleMarkerClick(event)

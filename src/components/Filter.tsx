@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 const FILTERS = [
     { id: "red", label: "Красный" },
@@ -34,7 +35,7 @@ function Filter({ activeFilters, setActiveFilters }: FilterProps) {
         <DropdownMenu>
             <DropdownMenuTrigger asChild={true}>
                 <Button variant="outline" className="h-[50] w-[50] rounded-full p-0">
-                    <img src="/funnel.svg"/>
+                    <Image src="/funnel.svg" alt="Filter icon" />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className={cn("z-[1050] mr-4")}>
