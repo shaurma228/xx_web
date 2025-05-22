@@ -5,7 +5,7 @@ import React, {
 } from "react"
 import { MapContainer, TileLayer, CircleMarker, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
-import Filter from "@/components/Filter"
+// import Filter from "@/components/Filter"
 import { Button} from "@/components/ui/button"
 import {
     Drawer,
@@ -46,7 +46,7 @@ function MapComponent() {
     const [topLeft, setTopLeft] = useState<[number, number]>([55.751244, 37.618423])
     const [bottomRight, setBottomRight] = useState<[number, number]>([55.751244, 37.618423])
     const [bounds, setBounds] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
-    const [activeFilters, setActiveFilters] = useState<string[]>([])
+    const [activeFilters] = useState<string[]>([])
     // const [events, setEvents] = useState<Event[]>([])
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
@@ -125,9 +125,9 @@ function MapComponent() {
                     <img src="/refresh-ccw.svg"/>
                 </Button>
             </div>
-            <div className="absolute top-4 right-4 z-[1000]">
-                <Filter activeFilters={activeFilters} setActiveFilters={setActiveFilters} />
-            </div>
+            {/*<div className="absolute top-4 right-4 z-[1000]">*/}
+            {/*    <Filter activeFilters={activeFilters} setActiveFilters={setActiveFilters} />*/}
+            {/*</div>*/}
             <MapContainer
                 className="leaflet-container z-0"
                 bounds={bounds}
