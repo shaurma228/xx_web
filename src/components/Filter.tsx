@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Funnel } from "lucide-react"
 import { Checkbox } from "@/components/ui/checkbox"
-import { cn } from "@/lib/utils" // Убедитесь, что у вас есть утилита для объединения классов
+import { cn } from "@/lib/utils"
 
 const FILTERS = [
     { id: "red", label: "Красный" },
@@ -19,7 +19,7 @@ const FILTERS = [
 
 interface FilterProps {
     activeFilters: string[]
-    setActiveFilters: React.Dispatch<React.SetStateAction<string[]>> // Обновлён тип
+    setActiveFilters: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 function Filter({ activeFilters, setActiveFilters }: FilterProps) {
