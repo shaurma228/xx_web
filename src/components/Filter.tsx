@@ -38,7 +38,7 @@ function Filter({ activeFilters, setActiveFilters }: FilterProps) {
                     <Funnel />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className={cn("z-[1050] ml-4")}>
+            <DropdownMenuContent className={cn("z-[1050] mr-4")}>
                 <div>
                     {FILTERS.map((filter) => (
                         <div className="flex items-center space-x-2" key={filter.id}>
