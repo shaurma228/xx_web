@@ -1,19 +1,12 @@
 'use client'
 
 import React, {
-    useState,
-    // useEffect
+    useState, // useEffect
 } from "react"
 import { MapContainer, TileLayer, CircleMarker, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
-// import axios from "axios"
-//
-// interface Action {
-//     title: string
-//     description: string
-//     color: 'red' | 'orange' | 'yellow' | 'green' | 'blue'
-// }
 import Filter from "@/components/Filter"
+// import axios from "axios"
 
 interface Event {
     id: string
@@ -23,15 +16,21 @@ interface Event {
 }
 
 const events: Event[] = [
-    { id: "1", position: [55.751244, 37.618423], color: "red", radius: 10 },
-    { id: "2", position: [55.752244, 37.615423], color: "orange", radius: 10 },
-    { id: "3", position: [55.750244, 37.620423], color: "green", radius: 10 },
+    { id: "1", position: [55.751244, 37.618423], color: "red", radius: 15 },
+    { id: "2", position: [55.752244, 37.615423], color: "orange", radius: 15 },
+    { id: "3", position: [55.750244, 37.620423], color: "green", radius: 15 },
 ]
 
 function MapComponent() {
-    const [ topLeft, setTopLeft ] = useState<[number, number]>([55.751244, 37.618423])
-    const [ bottomRight, setBottomRight ] = useState<[number, number]>([55.751244, 37.618423])
-    const [ bounds, setBounds ] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
+    const [topLeft, setTopLeft] = useState<[number, number]>([55.751244, 37.618423])
+    const [bottomRight, setBottomRight] = useState<[number, number]>([55.751244, 37.618423])
+    const [bounds, setBounds] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
+    const [activeFilters, setActiveFilters] = useState<string[]>([])
+
+    const filteredEvents = events.filter((event) =>
+        activeFilters.length === 0 || activeFilters.includes(event.color)
+    )
+
     // function postBounds(boundsData: [[number, number], [number, number]]) {
     //     axios.post('/api/postBounds', boundsData)
     //         .then(response => console.log('Bounds sent successfully:', response.data))
@@ -78,13 +77,13 @@ function MapComponent() {
     // })
     //
     // useEffect(() => {
-    //     fetchActions()
+    //     fetchEvents()
     // })
 
     return (
         <div className="relative w-full h-full">
             <div className="absolute top-4 left-4 z-[1000]"> {/* Увеличиваем z-index */}
-                <Filter />
+                <Filter activeFilters={activeFilters} setActiveFilters={setActiveFilters} />
             </div>
             <MapContainer
                 className="leaflet-container z-0" // Устанавливаем z-index карты ниже
@@ -95,7 +94,7 @@ function MapComponent() {
             >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MapEventHandler />
-                {events.map((event) => (
+                {filteredEvents.map((event) => (
                     <CircleMarker
                         key={event.id}
                         center={event.position}

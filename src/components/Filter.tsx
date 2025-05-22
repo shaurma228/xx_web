@@ -1,6 +1,6 @@
 'use client'
 
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,18 +12,21 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { cn } from "@/lib/utils" // Убедитесь, что у вас есть утилита для объединения классов
 
 const FILTERS = [
-    { id: "1", label: "Красный" },
-    { id: "2", label: "Оранжевый" },
-    { id: "3", label: "Зелёный" },
+    { id: "red", label: "Красный" },
+    { id: "orange", label: "Оранжевый" },
+    { id: "green", label: "Зелёный" },
 ]
 
-function Filter() {
-    const [selected, setSelected] = useState<string[]>([])
+interface FilterProps {
+    activeFilters: string[]
+    setActiveFilters: (filters: string[]) => void
+}
 
+function Filter({ activeFilters, setActiveFilters }: FilterProps) {
     const handleChange = (id: string) => {
-        setSelected(prev =>
+        setActiveFilters((prev) =>
             prev.includes(id)
-                ? prev.filter(item => item !== id)
+                ? prev.filter((item) => item !== id)
                 : [...prev, id]
         )
     }
@@ -32,16 +35,16 @@ function Filter() {
         <DropdownMenu>
             <DropdownMenuTrigger asChild={true}>
                 <Button variant="outline" size="icon">
-                    <Funnel/>
+                    <Funnel />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent className={cn("z-[1050] ml-4")}>
                 <div>
-                    {FILTERS.map(filter => (
+                    {FILTERS.map((filter) => (
                         <div className="flex items-center space-x-2" key={filter.id}>
                             <Checkbox
                                 id={filter.id}
-                                checked={selected.includes(filter.id)}
+                                checked={activeFilters.includes(filter.id)}
                                 onCheckedChange={() => handleChange(filter.id)}
                             />
                             <label htmlFor={filter.id}>{filter.label}</label>
