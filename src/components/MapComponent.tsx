@@ -3,7 +3,7 @@
 import React, {
     useState, // useEffect
 } from "react"
-import { MapContainer, TileLayer, CircleMarker, useMapEvents } from "react-leaflet"
+import { MapContainer, TileLayer, CircleMarker, Popup, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import Filter from "@/components/Filter"
 // import axios from "axios"
@@ -27,6 +27,7 @@ function MapComponent() {
     const [bottomRight, setBottomRight] = useState<[number, number]>([55.751244, 37.618423])
     const [bounds, setBounds] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
     const [activeFilters, setActiveFilters] = useState<string[]>([])
+    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
 
     const filteredEvents = events.filter((event) =>
         activeFilters.length === 0 || activeFilters.includes(event.color)
@@ -105,7 +106,21 @@ function MapComponent() {
                             fillColor: event.color,
                             fillOpacity: 0.5,
                         }}
-                    />
+                        eventHandlers={{
+                            click: () => setSelectedEvent(event),
+                        }}
+                    >
+                        {selectedEvent?.id === event.id && (
+                            <Popup
+                                position={event.position}
+                            >
+                                <div>
+                                    <h3 className="font-bold">{event.title}</h3>
+                                    <p>{event.status}</p>
+                                </div>
+                            </Popup>
+                        )}
+                    </CircleMarker>
                 ))}
             </MapContainer>
         </div>
