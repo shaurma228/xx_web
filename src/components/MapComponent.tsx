@@ -1,14 +1,12 @@
 'use client'
 
 import React, {
-    useState, useEffect
+    useState, // useEffect
 } from "react"
 import { MapContainer, TileLayer, CircleMarker, Popup, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import Filter from "@/components/Filter"
-import axios from "axios"
-
-const apiUrl = process.env.NEXT_PUBLIC_API_URL
+// import axios from "axios"
 
 interface Event {
     id: string
@@ -24,43 +22,46 @@ const events: Event[] = [
     { id: "3", position: [55.750244, 37.620423], color: "green", title: "Событие 3", status: "Статус 3" },
 ]
 
+// const apiUrl = process.env.NEXT_PUBLIC_API_URL
+
 function MapComponent() {
     const [topLeft, setTopLeft] = useState<[number, number]>([55.751244, 37.618423])
     const [bottomRight, setBottomRight] = useState<[number, number]>([55.751244, 37.618423])
     const [bounds, setBounds] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
     const [activeFilters, setActiveFilters] = useState<string[]>([])
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
-    const [events, setEvents] = useState<Event[]>([])
+    // const [events, setEvents] = useState<Event[]>([])
+
     const filteredEvents = events.filter((event) =>
         activeFilters.length === 0 || activeFilters.includes(event.color)
 
     )
 
-    function postBounds(boundsData: [[number, number], [number, number]]) {
-        axios.post(`${apiUrl}/api/postBounds`, boundsData)
-            .then(response => console.log('Bounds sent successfully:', response.data))
-            .catch(error => console.error('Error sending bounds:', error))
-    }
-
-    function fetchBounds() {
-        axios.get(`${apiUrl}/api/getBounds`)
-            .then(response => {
-                const data = response.data
-                setTopLeft([data.topLeft.lat, data.topLeft.lng])
-                setBottomRight([data.bottomRight.lat, data.bottomRight.lng])
-                setBounds([topLeft, bottomRight])
-            })
-            .catch(error => console.error('Error fetching bounds:', error))
-    }
-
-    function fetchEvents() {
-        axios.get(`${apiUrl}/api/getEvents`)
-            .then(response => {
-                setEvents(response.data)
-                console.log(events)
-            })
-            .catch(error => console.error('Error fetching actions:', error))
-    }
+    // function postBounds(boundsData: [[number, number], [number, number]]) {
+    //     axios.post(`${apiUrl}/api/postBounds`, boundsData)
+    //         .then(response => console.log('Bounds sent successfully:', response.data))
+    //         .catch(error => console.error('Error sending bounds:', error))
+    // }
+    //
+    // function fetchBounds() {
+    //     axios.get(`${apiUrl}/api/getBounds`)
+    //         .then(response => {
+    //             const data = response.data
+    //             setTopLeft([data.topLeft.lat, data.topLeft.lng])
+    //             setBottomRight([data.bottomRight.lat, data.bottomRight.lng])
+    //             setBounds([topLeft, bottomRight])
+    //         })
+    //         .catch(error => console.error('Error fetching bounds:', error))
+    // }
+    //
+    // function fetchEvents() {
+    //     axios.get(`${apiUrl}/api/getEvents`)
+    //         .then(response => {
+    //             setEvents(response.data)
+    //             console.log(events)
+    //         })
+    //         .catch(error => console.error('Error fetching actions:', error))
+    // }
 
     function MapEventHandler() {
         useMapEvents({
@@ -77,13 +78,13 @@ function MapComponent() {
         return null
     }
 
-    useEffect(() => {
-        fetchBounds()
-    })
-
-    useEffect(() => {
-        fetchEvents()
-    })
+    // useEffect(() => {
+    //     fetchBounds()
+    // })
+    //
+    // useEffect(() => {
+    //     fetchEvents()
+    // })
 
     return (
         <div className="relative w-full h-full">
