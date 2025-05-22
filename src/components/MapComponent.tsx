@@ -28,6 +28,7 @@ interface Event {
     id: string
     position: [number, number]
     color: string
+    radius: number | null
     titles: string[]
     statuses: string[]
     descriptions: string[]
@@ -132,7 +133,7 @@ function MapComponent() {
                     <CircleMarker
                         key={event.id}
                         center={event.position}
-                        radius={15}
+                        radius={event.radius || 15}
                         pathOptions={{
                             color: event.color,
                             fillColor: event.color,
