@@ -10,9 +10,11 @@ import {
 
 interface Props {
     color: 'red' | 'orange' | 'yellow' | 'green' | 'blue'
+    header: string
+    description: string
 }
 
-function Action({ color }: Props) {
+function Action({ color, header, description }: Props) {
     return (
         <Dialog>
             <DialogTrigger>
@@ -23,8 +25,8 @@ function Action({ color }: Props) {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>GOOOL!!!</DialogTitle>
-                    <DialogDescription>goyda</DialogDescription>
+                    <DialogTitle>{header}</DialogTitle>
+                    <DialogDescription>{description}</DialogDescription>
                 </DialogHeader>
             </DialogContent>
         </Dialog>
