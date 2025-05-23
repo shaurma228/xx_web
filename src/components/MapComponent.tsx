@@ -21,7 +21,6 @@ import {
 } from "@/components/ui/accordion"
 import { Separator } from "@/components/ui/separator"
 import Image from "next/image"
-
 import axios from "axios"
 
 interface Event {
