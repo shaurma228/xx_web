@@ -34,11 +34,13 @@ interface Event {
     descriptions: string[]
 }
 
+const startTopLeft: [number, number] = [55.751244, 37.618423] // Тут задать стартовые координаты
+const startBottomRight: [number, number] = [55.751244, 37.618423]
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 function MapComponent() {
-    const [topLeft, setTopLeft] = useState<[number, number]>([55.751244, 37.618423])
-    const [bottomRight, setBottomRight] = useState<[number, number]>([55.751244, 37.618423])
+    const [topLeft, setTopLeft] = useState<[number, number]>(startTopLeft)
+    const [bottomRight, setBottomRight] = useState<[number, number]>(startBottomRight)
     const [bounds, setBounds] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
     const [events, setEvents] = useState<Event[]>([])
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
