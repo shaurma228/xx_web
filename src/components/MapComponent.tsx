@@ -40,14 +40,10 @@ function MapComponent() {
     const [topLeft, setTopLeft] = useState<[number, number]>([55.751244, 37.618423])
     const [bottomRight, setBottomRight] = useState<[number, number]>([55.751244, 37.618423])
     const [bounds, setBounds] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
-    const [activeFilters] = useState<string[]>([])
     const [events, setEvents] = useState<Event[]>([])
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
 
-    const filteredEvents = events.filter((event) =>
-        activeFilters.length === 0 || activeFilters.includes(event.color)
-    )
     function postBounds(boundsData: [[number, number], [number, number]]) {
         axios.post(`${apiUrl}/api/postBounds`, boundsData)
             .then(response => console.log('Bounds sent successfully:', response.data))
@@ -129,7 +125,7 @@ function MapComponent() {
             >
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <MapEventHandler />
-                {filteredEvents.map((event) => (
+                {events.map((event) => (
                     <CircleMarker
                         key={event.id}
                         center={event.position}
