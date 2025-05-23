@@ -130,7 +130,7 @@ function MapComponent() {
                     <CircleMarker
                         key={event.id}
                         center={event.position}
-                        radius={event.radius || 15}
+                        radius={event.radius? event.radius : 15}
                         pathOptions={{
                             color: event.color,
                             fillColor: event.color,
