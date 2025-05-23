@@ -95,7 +95,7 @@ function MapComponent() {
     });
 
     function handleRefresh() {
-        window.location.reload();
+        window.location.reload()
     }
 
     function handleMarkerClick(event: Event) {
