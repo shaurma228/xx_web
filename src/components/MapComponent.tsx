@@ -33,6 +33,27 @@ interface Event {
     descriptions: string[]
 }
 
+const events: Event[] = [
+    {
+        id: "1",
+        position: [55.751244, 37.618423],
+        color: "red",
+        radius: 15,
+        titles: ["Пожар", "Затопление"],
+        statuses: ["Активно", "Неактивно"],
+        descriptions: ["Пожар в здании", "Затопление в подвале"],
+    },
+    {
+        id: "2",
+        position: [55.752023, 37.617499],
+        color: "orange",
+        radius: 15,
+        titles: ["ДТП", "Пробка"],
+        statuses: ["Активно", "Неактивно"],
+        descriptions: ["ДТП на дороге", "Пробка на трассе"],
+    },
+]
+
 const startTopLeft: [number, number] = [55.751244, 37.618423] // Тут задать стартовые координаты
 const startBottomRight: [number, number] = [55.751244, 37.618423]
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
@@ -41,7 +62,7 @@ function MapComponent() {
     const [topLeft, setTopLeft] = useState<[number, number]>(startTopLeft)
     const [bottomRight, setBottomRight] = useState<[number, number]>(startBottomRight)
     const [bounds, setBounds] = useState<[[number, number], [number, number]]>([topLeft, bottomRight])
-    const [events, setEvents] = useState<Event[]>([])
+    // const [events, setEvents] = useState<Event[]>([])
     const [isDrawerOpen, setIsDrawerOpen] = useState(false)
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
 
@@ -62,14 +83,14 @@ function MapComponent() {
             .catch(error => console.error('Error checking events:', error))
     }
     
-    async function fetchEvents() {
-        axios.get(`${apiUrl}/api/getEvents`)
-            .then(response => {
-                setEvents(response.data)
-                console.log(events)
-            })
-            .catch(error => console.error('Error fetching actions:', error))
-    }
+    // async function fetchEvents() {
+    //     axios.get(`${apiUrl}/api/getEvents`)
+    //         .then(response => {
+    //             setEvents(response.data)
+    //             console.log(events)
+    //         })
+    //         .catch(error => console.error('Error fetching actions:', error))
+    // }
 
     function MapEventHandler() {
         useMapEvents({
@@ -86,9 +107,9 @@ function MapComponent() {
         return null
     }
 
-    useEffect(() => {
-        fetchEvents()
-    })
+    // useEffect(() => {
+    //     fetchEvents()
+    // })
 
     useEffect(() => {
         checkEvents()
